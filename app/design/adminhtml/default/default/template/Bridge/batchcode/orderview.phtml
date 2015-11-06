@@ -1,0 +1,28 @@
+<?php
+/**
+ * Bridge Batchcode
+ *
+ * @category      Bridge
+ * @package       Bridge_Batchcode
+ * @copyright     Copyright (c) 2013 Bridge India. (http://bridge-india.in)
+ * @license       http://bridge-india.in/disclaimer/magento
+ */
+?>
+
+<strong><?php echo $this->helper('batchcode')->__('BATCHCODE') ?>:</strong>
+<?php
+$batches = $this->getBatchcode();
+if ($batches) {
+    foreach ($batches as $batch) {
+
+        echo $batch->getBatchNumber();
+        echo ' [' . date("d-m-Y", strtotime($batch->getExpirationDate())) . ']';
+
+        echo '<br>';
+    }
+} else {
+    echo 'No batchcodes for this product';
+}
+?>
+
+

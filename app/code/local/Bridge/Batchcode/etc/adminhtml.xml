@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+* Bridge Batchcode
+*
+* @category      Bridge
+* @package       Bridge_Batchcode
+* @copyright     Copyright (c) 2013 Bridge India. (http://bridge-india.in)
+* @license       http://bridge-india.in/disclaimer/magento
+-->
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <batchcode translate="title" module="batchcode">
+                    <title>Batch Code</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/batchcode/index</action>
+
+                    <children>
+                        <batchcodemanagement translate="title" module="batchcode">
+                            <title>Batch Code</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/batchcode/index</action>
+
+                        </batchcodemanagement>
+                        
+                        <batchcodesearch translate="title" module="batchcode">
+                            <title>Reports</title>
+                            <sort_order>12</sort_order>
+                            <action>adminhtml/batchcode/search</action>
+                        </batchcodesearch>
+                        
+                    </children>
+                </batchcode>
+            </children>
+        </catalog>
+    </menu>
+</config>

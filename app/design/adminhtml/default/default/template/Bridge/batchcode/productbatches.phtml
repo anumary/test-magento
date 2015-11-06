@@ -1,0 +1,35 @@
+<?php
+/**
+ * Bridge Batchcode
+ *
+ * @category      Bridge
+ * @package       Bridge_Batchcode
+ * @copyright     Copyright (c) 2013 Bridge India. (http://bridge-india.in)
+ * @license       http://bridge-india.in/disclaimer/magento
+ */
+?>
+<?php
+$qty_ordered = $this->getData('qty_ordered');
+?>
+<?php
+$qty_waiting = $qty_ordered;
+$batches = $this->getBatchByProduct();
+?>
+<div class="column_h">
+<?php $_i = 0;
+foreach ($batches as $batch): ?>
+
+    <?php
+    if ($qty_waiting > 0) {
+        $selected = 'checked="checked"';
+        $qty_waiting = $qty_waiting - $batch->getQty();
+    } else {
+        $selected = '';
+    }
+    ?>
+
+    <div class="column_n"><input type="checkbox" value="<?php echo $batch->getId(); ?>" name="shipment[batch_id][<?php echo $this->getData('order_item_id'); ?>][]" id="shipment[batch_id]" <?php echo $selected; ?> />&nbsp;<?php echo $batch->getBatchNumber(); ?>(<?php echo (int) $batch->getQty(); ?>)</div>
+
+<?php endforeach; ?>
+
+</div>

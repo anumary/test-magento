@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+* Bridge Batchcode
+*
+* @category      Bridge
+* @package       Bridge_Batchcode
+* @copyright     Copyright (c) 2013 Bridge India. (http://bridge-india.in)
+* @license       http://bridge-india.in/disclaimer/magento
+-->
+<config>
+    <modules>
+        <Bridge_Batchcode>
+            <version>1.1.0</version>
+        </Bridge_Batchcode>
+    </modules>
+
+    <global>
+        <models>
+            <batchcode>
+                <class>Bridge_Batchcode_Model</class>
+                <resourceModel>batchcode_resource</resourceModel>              
+            </batchcode>
+
+            <batchcode_resource>
+                <class>Bridge_Batchcode_Model_Resource</class>
+                <entities>
+                    <batchcode>
+                        <table>batchcode_entity</table>
+                    </batchcode>
+                    <batchcode_product>
+                        <table>batchcode_product</table>
+                    </batchcode_product>
+                    <batchcode_order_item>
+                        <table>batchcode_order_item</table>
+                    </batchcode_order_item>
+                </entities>
+            </batchcode_resource>
+            <!--batchcode-->
+            <sales>
+                <rewrite>
+                    <order_pdf_abstract>Bridge_Batchcode_Model_Order_Pdf_Abstract</order_pdf_abstract>
+                    <order_pdf_shipment>Bridge_Batchcode_Model_Order_Pdf_Shipment</order_pdf_shipment>
+                    <order_pdf_items_shipment_default>Bridge_Batchcode_Model_Order_Pdf_Items_Shipment_Default</order_pdf_items_shipment_default>               
+                </rewrite>
+            </sales>
+            
+            
+            <!--batchcode-->
+
+        </models>
+        <blocks>
+            <batchcode>
+                <class>Bridge_Batchcode_Block</class>
+            </batchcode>          
+        </blocks>
+        
+        <helpers>
+            <batchcode>
+                <class>Bridge_Batchcode_Helper</class>
+            </batchcode>
+        </helpers>
+        
+        <resources>
+            <batchcode_setup>
+                <setup>
+                    <module>Bridge_Batchcode</module>
+                    <class>Bridge_Batchcode_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </batchcode_setup>
+        </resources>
+
+    </global>
+    <frontend>
+        <routers>
+            <batchcode>
+                <use>standard</use>
+                <args>
+                    <module>Bridge_Batchcode</module>
+                    <frontName>batchcode</frontName>
+                </args>
+            </batchcode>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            
+            <adminhtml>
+                <args>
+                    <modules> 
+                        <batchcode before="Mage_Adminhtml">Bridge_Batchcode_Adminhtml</batchcode>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <translate>
+            <modules>
+                <bridge_adminhtml>
+                    <files>
+                        <batchcode>Bridge_Batchcode.csv</batchcode>
+                    </files>
+                </bridge_adminhtml>
+            </modules>
+        </translate>
+        <events>
+            <sales_order_shipment_save_custom>
+                <observers>
+                    <batchcode>
+                        <type>singleton</type>
+                        <class>Bridge_Batchcode_Model_Observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </batchcode>
+                </observers>
+            </sales_order_shipment_save_custom>
+        </events>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <batchcode translate="title" module="batchcode">
+                                    <title>Batch Code</title>
+                                    <sort_order>10</sort_order>
+                                    <action>adminhtml/batchcode/index</action>
+
+                                    <children>
+                                        <batchcodemanagement translate="title" module="batchcode">
+                                            <title>Batch Code</title>
+                                            <sort_order>10</sort_order>
+                                            <action>adminhtml/batchcode/index</action>
+
+                                        </batchcodemanagement>
+                                        <batchcodesearch translate="title" module="batchcode">
+                                            <title>Reports</title>
+                                            <sort_order>12</sort_order>
+                                            <action>adminhtml/batchcode/search</action>
+                                        </batchcodesearch>
+                                    </children>
+                                </batchcode>
+                            </children> 
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+        <layout>
+            <updates>
+                <batchcode>
+                    <file>bridge_batchcode.xml</file>
+                </batchcode>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
